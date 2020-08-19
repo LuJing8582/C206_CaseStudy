@@ -56,20 +56,7 @@ public class C206_CaseStudy {
 					System.out.println("Invalid type");
 				}
 			} else if (option == 3) {
-				// Loan item
-			/*	ResourceCentre.setHeader("LOAN");			
-				itemTypeMenu();
-				
-				int itemType = Helper.readInt("Enter option to select item type > ");
-
-				if (itemType == 1) {
-					ResourceCentre.loanCamcorder(camcorderList);
-				} else if (itemType == 2) {
-					ResourceCentre.loanChromebook(chromebookList);
-				} else {
-					System.out.println("Invalid type");
-				}
-*/
+			
 			}
 			
 			// appointment - yuting part
@@ -161,7 +148,7 @@ public class C206_CaseStudy {
 		
 		
 	
-/*	public static Boolean deletebikeinfo(ArrayList<Bike> bikeList, String deleteitem) {
+	public static Boolean deletebikeinfo(ArrayList<Bike> bikeList, String deleteitem) {
 		boolean deleted=false;
 		deleteitem=Helper.readStringRegEx("Enter the Id",nric_pattern);
 		
@@ -173,7 +160,7 @@ public class C206_CaseStudy {
 		}
 		}
 	
-*/
+
 	
 	//Appointment - YuTing
 	private static void appointmentTypeMenu() {
@@ -226,7 +213,7 @@ public class C206_CaseStudy {
 			}
 			else
 			{
-				System.out.println("Nope you are not the admin, you can't edit/delete the appointment list!");
+				System.out.println("Nope,you are not the admin, you can't edit/delete the appointment list!");
 			}
 		}
 	}
