@@ -9,7 +9,7 @@ public class C206_CaseStudy {
 	
 
 	private static final int OPTION_QUIT = 5;
-	private static final String nric_pattern = "[b][0-9]{4}";
+	private static final String nric_pattern = "[b][0-9]{3}";
 
 
     
@@ -33,29 +33,48 @@ public class C206_CaseStudy {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
-
+// yuping part 
 			if (option == 1) {
-				// View all items
-				C206_CaseStudy.viewbikeinfo(bikeList);
+				// View all items of bike 
+				
+				bikeinformationMenu();
+				option = Helper.readInt("Enter an option > ");
+				if(option==1) {
+					// view all bike 
+					C206_CaseStudy.viewAllbike(bikeList);
+					
+				}else if(option==2){
+					//add bike info
+					C206_CaseStudy.setHeader("ADD Bike Information");			
+					Bike cc =inputbike();
+					
+					addbike( bikeList,cc);
+				
+				}else if(option==3) {
+					// delete bike info 
+					C206_CaseStudy.setHeader("Delete bike infomation");
+					 String deleteitem=Helper.readStringRegEx("Enter the Id >",nric_pattern);
+					C206_CaseStudy.deletebikeinfo(bikeList,deleteitem);
+				}
+				else if(option==4) {
+					C206_CaseStudy.menu();
+					
+				}else {
+					System.out.println("Invalid type");
+				}
+				
 		} else if (option == 2) {
 				// Add a new item
-				C206_CaseStudy.setHeader("ADD");			
 				
-				int itemType = Helper.readInt("Enter option to select item type > ");
-			if (itemType == 1) {
-					
-	 	//		Bike cc = inputbike();
-		//			C206_CaseStudy.addCamcorder(bikeList, cc);
 
 				}/* else if (itemType == 2) {
 				
 					Chromebook cb = inputChromebook();
 					ResourceCentre.addChromebook(chromebookList, cb);
 
-				} */else {
-					System.out.println("Invalid type");
-				}
-			} else if (option == 3) {
+				} */
+			
+			} if (option == 3) {
 			
 			}
 			
@@ -98,8 +117,24 @@ public class C206_CaseStudy {
 
 		}
 
-	}
 	
+	
+	/**
+	 * 
+	 */
+	//yuping
+	private static void bikeinformationMenu() {
+		// TODO Auto-generated method stub
+		C206_CaseStudy.setHeader("Bike Information ");
+		System.out.println("1. View Bike Information");
+		System.out.println("2. Add Bike Information");
+		System.out.println("3. Delete Bike Information");
+		System.out.println("4. Quit");
+		Helper.line(80, "-");
+		
+		
+	}
+
 	private static void setHeader(String header) {
 		// TODO Auto-generated method stub
 		Helper.line(80, "-");
@@ -110,9 +145,9 @@ public class C206_CaseStudy {
 	private static void menu() {
 		// TODO Auto-generated method stub
 		C206_CaseStudy.setHeader("RESOURCE CENTRE APP");
-		System.out.println("1. Display Bike");
-		System.out.println("2. Add Bike");
-		System.out.println("3. Delete Bike");
+		System.out.println("1. Bike information");
+		System.out.println("2. BikePart");
+		System.out.println("3. --");
 		System.out.println("4. Appointment");
 		System.out.println("5. Quit");
 		Helper.line(80, "-");
@@ -120,8 +155,7 @@ public class C206_CaseStudy {
 	}
 
 
-	public static void createbikeinfo() {
-	}
+	//yuping
 		public static Bike inputbike() {
 			String id = Helper.readStringRegEx("Enter asset id > ",nric_pattern);
 			String name = Helper.readString("Enter name of bike > ");
@@ -131,12 +165,14 @@ public class C206_CaseStudy {
 			return cc;
 			
 		}
+		//yuping
 		public static void addbike(ArrayList<Bike> bikeList, Bike cc) {
 			
 			bikeList.add(cc);
 			System.out.println("bike added");
 		
 		}
+		//yuping
 	public static String viewbikeinfo(ArrayList<Bike> bikeList) {
 		String output = "";
 			for (int i = 0; i <bikeList.size(); i++) {
@@ -145,19 +181,28 @@ public class C206_CaseStudy {
 			}
 			return output;
 		}
+		//yuping 
+	public static void viewAllbike(ArrayList<Bike> bikeList) {
+		C206_CaseStudy.setHeader("Bike Info List");
+		String output = String.format("%-10s %-30s %-10s \n", "ASSET ID", "Brand of Bike","unit");
+		 output += viewbikeinfo(bikeList);	
+		System.out.println(output);
+	}
 		
-		
-	
+	//yuping
 	public static Boolean deletebikeinfo(ArrayList<Bike> bikeList, String deleteitem) {
-		boolean deleted=false;
-		deleteitem=Helper.readStringRegEx("Enter the Id",nric_pattern);
 		
-		for(int i =0; i<bikeList.size();i++ )
+		boolean deleted=false;
+		
+		for(int i = 0; i<bikeList.size();i++ )
 		if( bikeList.get(i).getId().equals(deleteitem)) {
-			bikeList.clear();
+			bikeList.remove(bikeList.get(i));
+			System.out.println("Bike info is deleted");
 			break;
-			deleted=true;
+		}else {
+			System.out.println("Invalid ID enter");
 		}
+		return deleted;
 		}
 	
 
