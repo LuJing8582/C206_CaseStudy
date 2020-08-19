@@ -1,11 +1,12 @@
 import java.util.ArrayList;
-
+import java.util.regex.Pattern;
 
 
 public class C206_CaseStudy {
 	
 
 	private static final int OPTION_QUIT = 5;
+	private static final String nric_pattern = "[b][0-9]{4}";
 
 
 
@@ -140,7 +141,7 @@ public class C206_CaseStudy {
 	
 
 		public static Bike inputbike() {
-			String id = Helper.readString("Enter asset id > ");
+			String id = Helper.readStringRegEx("Enter asset id > ",nric_pattern);
 			String name = Helper.readString("Enter name of bike > ");
 			int unit = Helper.readInt("Enter optical unit > ");
 
@@ -148,9 +149,9 @@ public class C206_CaseStudy {
 			return cc;
 			
 		}
-		public static void addCamcorder(ArrayList<Bike> bikeList, Bike cc) {
+		public static void addbike(ArrayList<Bike> bikeList, Bike cc) {
 			
-//			bikeList.add(cc);
+			bikeList.add(cc);
 			System.out.println("bike added");
 		
 		}
@@ -165,17 +166,17 @@ public class C206_CaseStudy {
 		
 		
 	
-	public static void deletebikeinfo(ArrayList<Bike> bikeList, Bike cc) {
+	public static Boolean deletebikeinfo(ArrayList<Bike> bikeList, String deleteitem) {
+		boolean deleted=false;
+		deleteitem=Helper.readStringRegEx("Enter the Id",nric_pattern);
 		
-		String deleteitem="";
 		for(int i =0; i<bikeList.size();i++ )
-		if( bikeList.get(i).equals(bikeList)) {
+		if( bikeList.get(i).getId().equals(deleteitem)) {
 			bikeList.clear();
 			break;
-			
-			
+			deleted=true;
 		}
-	}
+		}
 		
 	}
 

@@ -1,6 +1,7 @@
 // Version for AY2013/14 Sem 2
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Helper {
 
@@ -241,4 +242,21 @@ public class Helper {
     return getDay(one) == getDay(two) && getMonth(one) == getMonth(two)
         && getYear(one) == getYear(two);
   }
+
+/**
+ * @param string
+ * @param nricPattern
+ * @return
+ */
+public static String readStringRegEx(String prompt, String pattern) {
+		String input = readString(prompt);	
+		boolean matched = Pattern.matches(pattern, input);
+
+		while (!matched) {
+			System.out.println("Invalid input!");
+			input = readString(prompt);
+			matched = Pattern.matches(pattern, input);
+		}
+		return input;
+}
 }
