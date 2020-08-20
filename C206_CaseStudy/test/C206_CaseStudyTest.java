@@ -19,6 +19,7 @@ public class C206_CaseStudyTest {
 		b2=new Bike ("b002","Trek",5);
 		
 		bikeList= new ArrayList<Bike>();
+		
 	}
 	public void addBikeTest() {
 		// Item list is not null, so that can add a new item - boundary
@@ -64,7 +65,7 @@ public class C206_CaseStudyTest {
 	
 	public void deleteBikeInfoTest() {
 		//boundary
-		assertNotNull("Test if there is valid Chromebook arraylist to add to", bikeList);
+		assertNotNull("Test if there is valid bike arraylist to add to", bikeList);
 		C206_CaseStudy.addbike(bikeList, b1);
 		//normal
 		Boolean ok = C206_CaseStudy.deletebikeinfo(bikeList,"b001");

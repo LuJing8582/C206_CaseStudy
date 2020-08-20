@@ -5,12 +5,14 @@ import java.time.LocalDate;
 public class Appointment {
 	private String name;
 	private LocalDate appointmentDT;
+	private String time;
 	private String appointmentReason;
 	
 
-	public Appointment(String name, LocalDate appointmentDT, String appointmentReason) {
+	public Appointment(String name, LocalDate appointmentDT, String time, String appointmentReason) {
 		this.name = name;
 		this.appointmentDT = appointmentDT;
+		this.time = time;
 		this.appointmentReason = appointmentReason;
 	}
 
@@ -30,6 +32,13 @@ public class Appointment {
 		this.appointmentDT = appointmentDT;
 	}
 
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
 	public String getappointmentReason() {
 		return appointmentReason;
 	}

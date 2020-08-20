@@ -25,6 +25,7 @@ public class C206_CaseStudy {
 		
 		ArrayList<Appointment>appList = new ArrayList<Appointment>();
 		
+		
 	
 		
 		int option = 0;
@@ -39,6 +40,7 @@ public class C206_CaseStudy {
 				
 				bikeinformationMenu();
 				option = Helper.readInt("Enter an option > ");
+				
 				if(option==1) {
 					// view all bike 
 					C206_CaseStudy.viewAllbike(bikeList);
@@ -56,29 +58,9 @@ public class C206_CaseStudy {
 					 String deleteitem=Helper.readStringRegEx("Enter the Id >",nric_pattern);
 					C206_CaseStudy.deletebikeinfo(bikeList,deleteitem);
 				}
-				else if(option==4) {
-					C206_CaseStudy.menu();
-					
-				}else {
-					System.out.println("Invalid type");
-				}
-				
-		} else if (option == 2) {
-				// Add a new item
-				
-
-				}/* else if (itemType == 2) {
-				
-					Chromebook cb = inputChromebook();
-					ResourceCentre.addChromebook(chromebookList, cb);
-
-				} */
-			
-			} if (option == 3) {
-			
 			}
-			
-			// appointment - yuting part
+				
+				//yt option 4 for the menu
 			else if (option == 4) {
 				
 				C206_CaseStudy.setHeader("Appointment");				
@@ -93,30 +75,35 @@ public class C206_CaseStudy {
 				else if (optionType == 2)
 				{
 					C206_CaseStudy.setHeader("View Appointment");
+					String validation = Helper.readString("Admin Identity:");
+					if(validation.equalsIgnoreCase("T1")) {
 					viewApp(appList);
+					}
 				}
 				else if(optionType == 3)
 				{
 					C206_CaseStudy.setHeader("Modify Appointment");
-					editApp(appList);
+					String validation = Helper.readString("Admin Identity:");
+					if(validation.equalsIgnoreCase("T1")) {
+					modiffApp(appList);
+					}
 				}
 				else if (optionType ==4)
 				{
 					menu();
 				}
-				
-				else {
-					System.out.println("Invalid option!");
+				else
+				{
+					System.out.println("Invalid");
 				}
-
-			} else if (option == 5) {
-				System.out.println("Bye!");
-			} else {
-				System.out.println("Invalid option");
-			}
-
+			
 		}
-
+		}
+	}
+				
+	
+		
+		
 	
 	
 	/**
@@ -221,48 +208,89 @@ public class C206_CaseStudy {
 		DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String name = Helper.readString("Enter name> ");
 		String date =Helper.readString("Enter appointment date in this format : dd/MM/yyyy > ");
-		LocalDate dob=LocalDate.parse(date,formatter); // using phrase to format the string birth into local time
+		LocalDate doa=LocalDate.parse(date,formatter); // using phrase to format the string birth into local time
+		String time = Helper.readString("Enter prefernce time in this format : HH:MM > ");
 		String reason = Helper.readString("Appointment Reason > ");
-		if(dob.getYear() < 2020 )
+		if(doa.getYear() < 2020 )
 		{
 			System.out.println("Please enter a valid date!");
 		}
 		else {
-		appList.add(new Appointment(name,dob,reason)); 
+		appList.add(new Appointment(name,doa,time,reason));
         System.out.println("***Appointment added********");
 	}	
 	}
 	
 	public static void viewApp(ArrayList<Appointment> appList)
 	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	    
 		
 	    Helper.line(30, "=");
-		System.out.println(String.format("%-20s %-20s %-20s","NAME","APPOINTMENT DATE", "REASON"));
+		System.out.println(String.format("%-20s %-20s %-20s %-20s","NAME","APPOINTMENT DATE","TIME", "REASON"));
 		for(Appointment app : appList) {
-			System.out.println(String.format("%-20s %-20s %-20s",app.getName(),app.getappointmentDT().format(formatter),app.getappointmentReason()));
+			System.out.println(String.format("%-20s %-20s %-20s %-20s",app.getName(),app.getappointmentDT().format(formatter),app.getTime(),app.getappointmentReason()));
 		}
 		
 	}
-	public static void editApp(ArrayList<Appointment>appList)
+	public static void modiffApp(ArrayList<Appointment>appList)
 	{
-		String validation = Helper.readString("Admin Identity:");
-		{
-			if(validation.equalsIgnoreCase("Jane"))//only admin can edit/delete, use faci's name by default
-			{
 				Helper.line(30, "=");
 				System.out.println("1. Edit the appointment");
 				System.out.println("2. Delete the appointment");
 				System.out.println("3. Back to Appointment Menu");
+				int choice = Helper.readInt("Enter your choice > ");
+				if(choice == 1)
+				{
+					editApp(appList);
+				}
+				else if (choice == 2)
+				{
+					deleteApp(appList);
+				}
+	}
+	
+	public static void editApp(ArrayList<Appointment>appList)
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		 Helper.line(30, "=");
+			System.out.println(String.format("%-20s %-20s %-20s %-20s","NAME","APPOINTMENT DATE","TIME", "REASON"));
+			for(Appointment app : appList) {
+				System.out.println(String.format("%-20s %-20s %-20s %-20s",app.getName(),app.getappointmentDT().format(formatter),app.getTime(),app.getappointmentReason()));
 			}
-			else
+			for(int i = 0; i < appList.size(); i ++) {
+			String name = Helper.readString("Who's record you want to edit? > ");
+			if(name.equalsIgnoreCase(appList.get(i).getName()));
 			{
-				System.out.println("Nope,you are not the admin, you can't edit/delete the appointment list!");
+				String editDate =Helper.readString("Enter appointment date in this format : dd/MM/yyyy > ");
+				LocalDate doa=LocalDate.parse(editDate,formatter); // using phrase to format the string birth into local time
+				String time = Helper.readString("Enter prefernce time in this format : HH:MM > ");
+				String reason = Helper.readString("Appointment Reason > ");
+				appList.get(i).setappointmentDT(doa);
+				appList.get(i).setTime(time);
+				appList.get(i).setappointmentReason(reason);
+			}
+	}
+	}
+	
+	public static void deleteApp(ArrayList<Appointment>appList)
+	{    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		 Helper.line(30, "=");
+			System.out.println(String.format("%-20s %-20s %-20s %-20s","NAME","APPOINTMENT DATE","TIME", "REASON"));
+			for(Appointment app : appList) {
+				System.out.println(String.format("%-20s %-20s %-20s %-20s",app.getName(),app.getappointmentDT().format(formatter),app.getTime(),app.getappointmentReason()));
+			}
+			for(int i = 0; i < appList.size(); i ++) {
+			String name = Helper.readString("Who's record you want to delete? > ");
+			if(name.equalsIgnoreCase(appList.get(i).getName()))
+			{
+				appList.remove(appList.get(i));
+				System.out.println("deleted");
 			}
 		}
 	}
-	}
+
+}
 	
 
 
