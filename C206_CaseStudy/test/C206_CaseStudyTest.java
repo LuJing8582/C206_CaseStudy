@@ -129,7 +129,7 @@ public class C206_CaseStudyTest {
 				testOutput="Empty";
 			}
 		}
-		assertEquals("Test that View All Bike list", testOutput, allAppInfo);
+		assertEquals("Test that View All Appointment list", testOutput, allAppInfo);
 		
 	}
 
