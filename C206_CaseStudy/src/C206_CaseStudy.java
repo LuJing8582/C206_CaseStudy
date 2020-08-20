@@ -24,7 +24,11 @@ public class C206_CaseStudy {
 		bikeList.add(new Bike ("b004","Kona",10));
 		
 		ArrayList<Appointment>appList = new ArrayList<Appointment>();
-		
+		DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String date = "12/10/2020";
+		LocalDate doa=LocalDate.parse(date,formatter);
+		appList.add(new Appointment("Yuting",doa,"10:20","Buy Bike"));
+		appList.add(new Appointment("YuPing",doa,"11:30","Collect Bike"));
 		
 	
 		
@@ -69,7 +73,8 @@ public class C206_CaseStudy {
 				int optionType = Helper.readInt("Enter choice > ");
 				if (optionType == 1) {
 					C206_CaseStudy.setHeader("Create Appointment");
-					addApp(appList);
+					Appointment ap =inputAppointment();
+					addApp(appList,ap);
 
 				} 
 				else if (optionType == 2)
@@ -77,7 +82,7 @@ public class C206_CaseStudy {
 					C206_CaseStudy.setHeader("View Appointment");
 					String validation = Helper.readString("Admin Identity:");
 					if(validation.equalsIgnoreCase("T1")) {
-					viewApp(appList);
+					viewAllApp(appList);
 					}
 				}
 				else if(optionType == 3)
@@ -203,35 +208,40 @@ public class C206_CaseStudy {
 		System.out.println("4.Menu");
 		Helper.line(30, "=");
 	}
-	public static void addApp(ArrayList<Appointment> appList )
-	{
+	public static Appointment inputAppointment() {
 		DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String name = Helper.readString("Enter name> ");
 		String date =Helper.readString("Enter appointment date in this format : dd/MM/yyyy > ");
 		LocalDate doa=LocalDate.parse(date,formatter); // using phrase to format the string birth into local time
 		String time = Helper.readString("Enter prefernce time in this format : HH:MM > ");
 		String reason = Helper.readString("Appointment Reason > ");
-		if(doa.getYear() < 2020 )
-		{
-			System.out.println("Please enter a valid date!");
-		}
-		else {
-		appList.add(new Appointment(name,doa,time,reason));
-        System.out.println("***Appointment added********");
-	}	
+
+		Appointment ap = new Appointment(name,doa,time,reason);
+		return ap;
+		
 	}
-	
-	public static void viewApp(ArrayList<Appointment> appList)
-	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	    
+	public static void addApp(ArrayList<Appointment> appList,Appointment ap) {
 		
-	    Helper.line(30, "=");
-		System.out.println(String.format("%-20s %-20s %-20s %-20s","NAME","APPOINTMENT DATE","TIME", "REASON"));
-		for(Appointment app : appList) {
-			System.out.println(String.format("%-20s %-20s %-20s %-20s",app.getName(),app.getappointmentDT().format(formatter),app.getTime(),app.getappointmentReason()));
+		appList.add(ap);
+		System.out.println("Appointment added");
+	}
+
+
+	public static String viewAppInfo(ArrayList<Appointment> appList) {
+		String output = "";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		for(int i = 0; i < appList.size(); i ++) {
+			output += String.format("%-20s %-20s %-20s %-20s \n",appList.get(i).getName(),appList.get(i).getappointmentDT().format(formatter),appList.get(i).getTime(),appList.get(i).getappointmentReason());
+		}
+			return output;
 		}
 		
+	public static void viewAllApp(ArrayList<Appointment> appList) {
+		
+		Helper.line(30, "=");
+		String output = String.format("%-20s %-20s %-20s %-20s \n","NAME","APPOINTMENT DATE","TIME", "REASON");
+		output += viewAppInfo(appList);	
+		System.out.println(output);
 	}
 	public static void modiffApp(ArrayList<Appointment>appList)
 	{
@@ -258,8 +268,8 @@ public class C206_CaseStudy {
 			for(Appointment app : appList) {
 				System.out.println(String.format("%-20s %-20s %-20s %-20s",app.getName(),app.getappointmentDT().format(formatter),app.getTime(),app.getappointmentReason()));
 			}
-			for(int i = 0; i < appList.size(); i ++) {
 			String name = Helper.readString("Who's record you want to edit? > ");
+			for(int i = 0; i < appList.size(); i ++) {
 			if(name.equalsIgnoreCase(appList.get(i).getName()));
 			{
 				String editDate =Helper.readString("Enter appointment date in this format : dd/MM/yyyy > ");
@@ -269,6 +279,7 @@ public class C206_CaseStudy {
 				appList.get(i).setappointmentDT(doa);
 				appList.get(i).setTime(time);
 				appList.get(i).setappointmentReason(reason);
+				System.out.println("Updaded!");
 			}
 	}
 	}
@@ -280,8 +291,8 @@ public class C206_CaseStudy {
 			for(Appointment app : appList) {
 				System.out.println(String.format("%-20s %-20s %-20s %-20s",app.getName(),app.getappointmentDT().format(formatter),app.getTime(),app.getappointmentReason()));
 			}
-			for(int i = 0; i < appList.size(); i ++) {
 			String name = Helper.readString("Who's record you want to delete? > ");
+			for(int i = 0; i < appList.size(); i ++) {
 			if(name.equalsIgnoreCase(appList.get(i).getName()))
 			{
 				appList.remove(appList.get(i));

@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -9,9 +11,12 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	private Bike b1;
 	private Bike b2;
+	private Appointment a1;
+	private Appointment a2;
 
 	 private ArrayList<Bike> bikeList;
 	 
+	 private ArrayList<Appointment>appList;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -20,6 +25,12 @@ public class C206_CaseStudyTest {
 		
 		bikeList= new ArrayList<Bike>();
 		
+		appList = new ArrayList<Appointment>();
+		DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String date = "12/10/2020";
+		LocalDate doa=LocalDate.parse(date,formatter);
+		a1 = new Appointment("Yuting",doa,"10:20","Buy Bike");
+		a2 = new Appointment("YuPing",doa,"11:30","Collect Bike");
 	}
 	public void addBikeTest() {
 		// Item list is not null, so that can add a new item - boundary
@@ -79,12 +90,57 @@ public class C206_CaseStudyTest {
 		
 	}
 	
+	
+	//appointment test
+	public void addAppointmentTest() {
+		// appointment list is not null, so that can add a new appointment - boundary
+		assertNotNull("Check if there is valid appointment arraylist to add to", appList);
+		
+		//Given an empty list, after adding 1 appointment, the size of the list is 1 - normal
+		//The appointment just added is as same as the first appointment of the list
+		C206_CaseStudy.addApp(appList,a1);
+		assertEquals("Check that appointment arraylist size is 1", 1, appList.size());
+		assertSame("Check that appointment is added", a1, appList.get(0));
+		
+		//Add another item. test The size of the list is 2? -normal
+		//The item just added is as same as the second item of the list
+		C206_CaseStudy.addApp(appList,a2);
+		assertEquals("Check that name for appointment is the same", 2,appList.get(1).getName());
+		assertSame("Check that appointment is added", a2, appList.get(1));
+	}
+
+	public void viewAllAppointmentInfoTest() {
+		// Test if Appointment list is not null but empty -boundary
+		assertNotNull("Test if there is valid appoinment arraylist to retrieve item", appList);
+		
+		String allAppInfo= C206_CaseStudy.viewAppInfo(appList);
+		String testOutput = "";
+		assertEquals("Check that view All Appointment List", testOutput, allAppInfo);
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+		C206_CaseStudy.addApp(appList, a1);
+		C206_CaseStudy.addApp(appList, a2);
+		assertEquals("Test that appointment arraylist size is 2", 2, appList.size());
+		
+		//test if the expected output display error message for zero selected - error
+		allAppInfo = C206_CaseStudy.viewAppInfo(appList);
+		for(int i =0;i<appList.size();i++) {
+			if(appList.get(i).getName()==null) {
+				testOutput="Empty";
+			}
+		}
+		assertEquals("Test that View All Bike list", testOutput, allAppInfo);
+		
+	}
+
+	
 	@After
 	public void tearDown() throws Exception {
 		b1=null;
 		b2=null;
 		bikeList= null;
 		
+		a1= null;
 	}
 
 	@Test
