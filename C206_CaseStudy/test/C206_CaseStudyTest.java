@@ -109,29 +109,6 @@ public class C206_CaseStudyTest {
 		assertSame("Check that appointment is added", a2, appList.get(1));
 	}
 
-	public void viewAllAppointmentInfoTest() {
-		// Test if Appointment list is not null but empty -boundary
-		assertNotNull("Test if there is valid appoinment arraylist to retrieve item", appList);
-		
-		String allAppInfo= C206_CaseStudy.viewAppInfo(appList);
-		String testOutput = "";
-		assertEquals("Check that view All Appointment List", testOutput, allAppInfo);
-		
-		//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
-		C206_CaseStudy.addApp(appList, a1);
-		C206_CaseStudy.addApp(appList, a2);
-		assertEquals("Test that appointment arraylist size is 2", 2, appList.size());
-		
-		//test if the expected output display error message for zero selected - error
-		allAppInfo = C206_CaseStudy.viewAppInfo(appList);
-		for(int i =0;i<appList.size();i++) {
-			if(appList.get(i).getName()==null) {
-				testOutput="Empty";
-			}
-		}
-		assertEquals("Test that View All Appointment list", testOutput, allAppInfo);
-		
-	}
 
 	
 	@After

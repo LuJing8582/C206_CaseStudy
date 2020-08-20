@@ -64,7 +64,7 @@ public class C206_CaseStudy {
 				}
 			}
 				
-				//yt option 4 for the menu
+				//yt option 4 for the appointment menu
 			else if (option == 4) {
 				
 				C206_CaseStudy.setHeader("Appointment");				
