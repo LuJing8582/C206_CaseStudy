@@ -259,7 +259,6 @@ public class C206_CaseStudy {
 					deleteApp(appList);
 				}
 	}
-	
 	public static void editApp(ArrayList<Appointment>appList)
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -283,6 +282,7 @@ public class C206_CaseStudy {
 			}
 	}
 	}
+	
 	
 	public static void deleteApp(ArrayList<Appointment>appList)
 	{    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

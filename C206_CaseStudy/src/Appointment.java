@@ -52,6 +52,6 @@ public class Appointment {
 	        return String.format("%-10s %-30s %-10d", getName(),
 	                getappointmentDT(), getappointmentReason());
 	    }
-	
+
 
 }
