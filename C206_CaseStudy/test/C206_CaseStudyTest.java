@@ -119,6 +119,8 @@ public class C206_CaseStudyTest {
 		String testOutput = "";
 		assertEquals("Check that viewAllAppointmentlist",testOutput,allAppointment);
 		//Test that after adding 2 record, the size of the list is 2 - normal
+		C206_CaseStudy.addApp(appList, a1);
+		C206_CaseStudy.addApp(appList, a2);
 		assertEquals("Test that appointment arraylist size is 2",2,appList.size());
 		//test if the expected output string same as the list of appointment retrieved from the c206_caseStudy	
 		allAppointment= C206_CaseStudy.viewAppInfo(appList);
