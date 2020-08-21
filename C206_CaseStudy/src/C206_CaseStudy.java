@@ -38,7 +38,7 @@ public class C206_CaseStudy {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
-// yuping part 
+            // yuping part 
 			if (option == 1) {
 				// View all items of bike 
 				
@@ -132,7 +132,7 @@ public class C206_CaseStudy {
 
 	private static void menu() {
 		// TODO Auto-generated method stub
-		C206_CaseStudy.setHeader("RESOURCE CENTRE APP");
+		C206_CaseStudy.setHeader("BIKE APP");
 		System.out.println("1. Bike information");
 		System.out.println("2. BikePart");
 		System.out.println("3. --");
