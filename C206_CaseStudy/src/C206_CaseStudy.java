@@ -37,26 +37,26 @@ public class C206_CaseStudy {
 		while (option != OPTION_QUIT) {
 
 			C206_CaseStudy.menu();
-			option = Helper.readInt("Enter an option > ");
+			option= Helper.readInt("Enter an option > ");
             // yuping part 
 			if (option == 1) {
 				// View all items of bike 
 				
 				bikeinformationMenu();
-				option = Helper.readInt("Enter an option > ");
+				int optionBike = Helper.readInt("Enter an option > ");
 				
-				if(option==1) {
+				if(optionBike==1) {
 					// view all bike 
 					C206_CaseStudy.viewAllbike(bikeList);
 					
-				}else if(option==2){
+				}else if(optionBike==2){
 					//add bike info
 					C206_CaseStudy.setHeader("ADD Bike Information");			
 					Bike cc =inputbike();
 					
 					addbike( bikeList,cc);
 				
-				}else if(option==3) {
+				}else if(optionBike==3) {
 					// delete bike info 
 					C206_CaseStudy.setHeader("Delete bike infomation");
 					 String deleteitem=Helper.readStringRegEx("Enter the Id >",nric_pattern);
@@ -99,7 +99,12 @@ public class C206_CaseStudy {
 				}
 			
 		}
+			else
+			{
+				System.out.println("Invalid");
+			}
 		}
+		
 	}
 				
 	
