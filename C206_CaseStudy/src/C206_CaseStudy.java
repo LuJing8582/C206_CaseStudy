@@ -80,18 +80,14 @@ public class C206_CaseStudy {
 				else if (optionType == 2)
 				{
 					C206_CaseStudy.setHeader("View Appointment");
-					String validation = Helper.readString("Admin Identity:");
-					if(validation.equalsIgnoreCase("T1")) {
 					viewAllApp(appList);
-					}
+					
 				}
 				else if(optionType == 3)
 				{
 					C206_CaseStudy.setHeader("Modify Appointment");
-					String validation = Helper.readString("Admin Identity:");
-					if(validation.equalsIgnoreCase("T1")) {
 					modiffApp(appList);
-					}
+					
 				}
 				else if (optionType ==4)
 				{
@@ -252,14 +248,15 @@ public class C206_CaseStudy {
 				int choice = Helper.readInt("Enter your choice > ");
 				if(choice == 1)
 				{
-					editApp(appList);
+					//editApp(appList);
 				}
 				else if (choice == 2)
 				{
 					deleteApp(appList);
 				}
 	}
-	public static void editApp(ArrayList<Appointment>appList)
+	
+	/*public static void editApp(ArrayList<Appointment>appList)
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		 Helper.line(30, "=");
@@ -281,25 +278,35 @@ public class C206_CaseStudy {
 				System.out.println("Updaded!");
 			}
 	}
-	}
 	
-	
-	public static void deleteApp(ArrayList<Appointment>appList)
-	{    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		 Helper.line(30, "=");
-			System.out.println(String.format("%-20s %-20s %-20s %-20s","NAME","APPOINTMENT DATE","TIME", "REASON"));
-			for(Appointment app : appList) {
-				System.out.println(String.format("%-20s %-20s %-20s %-20s",app.getName(),app.getappointmentDT().format(formatter),app.getTime(),app.getappointmentReason()));
+	*/
+	// write your doReturnChromebook code here
+		public static boolean doDeleteApp(ArrayList<Appointment> appList,String name) {
+			boolean isReturned = false;
+
+			for (int i = 0; i < appList.size(); i++) {
+				if (name.equalsIgnoreCase(appList.get(i).getName()))
+		      	{
+					isReturned = true;
+					appList.remove(appList.get(i));
+				}
 			}
-			String name = Helper.readString("Who's record you want to delete? > ");
-			for(int i = 0; i < appList.size(); i ++) {
-			if(name.equalsIgnoreCase(appList.get(i).getName()))
-			{
-				appList.remove(appList.get(i));
-				System.out.println("deleted");
+			return isReturned;
+			
+		}
+		public static void deleteApp(ArrayList<Appointment> appList) {
+
+			C206_CaseStudy.viewAppInfo(appList);
+			String name = Helper.readString("Enter name to delete> ");
+			Boolean isReturned = doDeleteApp(appList, name);
+			
+			if (isReturned == false) {
+				System.out.println("Invalid asset tag");
+			} else {
+				System.out.println("Appointment for " + name + " deleted");
 			}
 		}
-	}
+
 
 }
 	

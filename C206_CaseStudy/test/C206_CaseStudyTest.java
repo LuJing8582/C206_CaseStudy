@@ -102,12 +102,50 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that appointment arraylist size is 1", 1, appList.size());
 		assertSame("Check that appointment is added", a1, appList.get(0));
 		
-		//Add another item. test The size of the list is 2? -normal
-		//The item just added is as same as the second item of the list
+		//Add another record. test The size of the list is 2? -normal
+		//The record just added is as same as the second record of the list
 		C206_CaseStudy.addApp(appList,a2);
 		assertEquals("Check that name for appointment is the same", 2,appList.get(1).getName());
 		assertSame("Check that appointment is added", a2, appList.get(1));
 	}
+	@Test
+	
+	public void retrieveAllAppointmentTest()
+	{
+		//Test if the appointment list is not null but empty - boundary
+		assertNotNull("Test if there is valid appointment arraylist to retrieve record", appList);
+		//Test if the list of appointment retrieved from the case study is empty - boundary
+		String allAppointment = C206_CaseStudy.viewAppInfo(appList);
+		String testOutput = "";
+		assertEquals("Check that viewAllAppointmentlist",testOutput,allAppointment);
+		//Test that after adding 2 record, the size of the list is 2 - normal
+		assertEquals("Test that appointment arraylist size is 2",2,appList.size());
+		//test if the expected output string same as the list of appointment retrieved from the c206_caseStudy	
+		allAppointment= C206_CaseStudy.viewAppInfo(appList);
+		DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String date = "12/10/2020";
+		LocalDate doa=LocalDate.parse(date,formatter);
+		testOutput = String.format("%-20s %-20s %-20s %-20s \n","Yuting",doa,"10:20","Buy Bike");
+		testOutput += String.format("%-20s %-20s %-20s %-20s\n","YuPing",doa,"11:30","Collect Bike" );
+	
+		assertEquals("Test that ViewAllCamcorderlist", testOutput, allAppointment);
+	}
+	public void deleteAppTest()
+	{
+			//boundary
+			assertNotNull("Test if there is valid appointment arraylist to add to", appList);
+			C206_CaseStudy.addApp(appList, a1);
+			//normal
+			Boolean ok = C206_CaseStudy.doDeleteApp(appList,a1.getName());
+			assertTrue("Test if an available item is ok to delete?", ok);		
+			//error 
+			ok = C206_CaseStudy.doDeleteApp(appList,"");
+			assertFalse("Test if the same item is NOT ok to delete ?", ok);	
+			
+			
+		}
+	
+
 
 
 	
@@ -118,6 +156,8 @@ public class C206_CaseStudyTest {
 		bikeList= null;
 		
 		a1= null;
+		a2 = null;
+		appList = null;
 	}
 
 	@Test
