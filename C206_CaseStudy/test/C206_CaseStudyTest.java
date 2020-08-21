@@ -122,15 +122,6 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addApp(appList, a1);
 		C206_CaseStudy.addApp(appList, a2);
 		assertEquals("Test that appointment arraylist size is 2",2,appList.size());
-		//test if the expected output string same as the list of appointment retrieved from the c206_caseStudy	
-		allAppointment= C206_CaseStudy.viewAppInfo(appList);
-		DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String date = "12/10/2020";
-		LocalDate doa=LocalDate.parse(date,formatter);
-		testOutput = String.format("%-20s %-20s %-20s %-20s \n","Yuting",doa,"10:20","Buy Bike");
-		testOutput += String.format("%-20s %-20s %-20s %-20s\n","YuPing",doa,"11:30","Collect Bike" );
-	
-		assertEquals("Test that ViewAllCamcorderlist", testOutput, allAppointment);
 	}
 	public void deleteAppTest()
 	{
